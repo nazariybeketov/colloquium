@@ -17,7 +17,10 @@ def welcome():
     print("\n")
     user_ans = int(input("Какой командой желаете восьпользоваться? => "))
 
-    if user_ans == 2:
+    if user_ans == 1:
+        page_by_page()
+
+    elif user_ans == 2:
         add_human()
     elif user_ans == 3:
         edit_contact()
@@ -94,7 +97,6 @@ def find_str(counter=0):
     return response
 
 
-
 ######################## Доделать!!!!!!!!!!!!!!!!
 def edit_contact():
 
@@ -119,5 +121,13 @@ def edit_contact():
             catalog.writelines(list_of_catalog)
 
 
-# welcome()
-edit_contact()
+def page_by_page():
+    line = find_str()
+    for i in range(len(line)):
+        with open(
+            file=f"one_record_{i+1}.txt", encoding="utf-8", mode="w"
+        ) as temp_file:
+            temp_file.write(line[i])
+
+
+welcome()
