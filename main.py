@@ -1,6 +1,6 @@
 """
 
-Тестовое задание
+Тестовое задание - Телефонный справочник
 
 """
 
@@ -10,6 +10,7 @@ from lists import human_params, which_cmd
 
 # Главное меню
 def welcome(which_cmd: list[str] = which_cmd) -> NoReturn:
+    ### Приветственная надпись
     counter = 0
     print(f"Здравствуйте\n")
 
@@ -18,7 +19,9 @@ def welcome(which_cmd: list[str] = which_cmd) -> NoReturn:
 
     print("\n")
     user_ans = int(input("Какой командой желаете восьпользоваться? => "))
+    ###
 
+    # Варианты функций
     match user_ans:
         case 1:
             page_by_page()
@@ -54,9 +57,15 @@ def add_human(human_params: list[str] = human_params) -> str:
         if len(catalog.readlines()) > 0:
             catalog.write("\n")
 
-        catalog.write(" ".join(human))
+        catalog.write(" ".join(human) + "\n")
 
         print(f"\nКОНТАКТ УСПЕШНО ДОБАВЛЕН!!!\n")
+
+    wanna_cont = input(
+        "Нажмите 1, чтобы вернуться назад. Нажмите любую другую кнопку, чтобы завершить программу => "
+    )
+
+    welcome() if wanna_cont == "1" else ...
 
 
 # Функция поиска человека
@@ -90,10 +99,11 @@ def find_human(
 
     # Работа с файлом
     with open(file="catalog.txt", encoding="utf-8", mode="r") as catalog:
-        #####
+
+        # Поиск человека
+
         for line in catalog.readlines():
             elements_of_working_line = line.split()
-            ##### Рабочая строка
 
             for answer in user_answer:
                 if (
@@ -112,10 +122,11 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
 
     line = find_human()
 
+    ### Сбор данных от пользователя
     if len(line) == 1:
         print(f"Что хотите изменить?\n")
         for i in range(len(human_params)):
-            print(f"{i} - {human_params[i]}")
+            print(f"{i+1} - {human_params[i]}")
         print("\n")
 
         user_answer = list(
@@ -126,10 +137,12 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
         )
         new_line = line[0].split()
         for j in user_answer:
-            new_line[j] = input(f'Введите поле "{human_params[j]}" => ')
+            new_line[j - 1] = input(f'Введите поле "{human_params[j-1]}" => ')
+        ###
 
         new_line = " ".join(new_line) + "\n"
 
+        # Формирование нужной строки
         with open(file="catalog.txt", encoding="utf-8", mode="r") as catalog:
             list_of_catalog = catalog.readlines()
             for i in range(len(list_of_catalog)):
@@ -137,14 +150,16 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
                     list_of_catalog[i] = new_line
                     break
 
+        # Внос изменений в файл
         with open(file="catalog.txt", encoding="utf-8", mode="w") as catalog:
             catalog.writelines(list_of_catalog)
-            wanna_cont = int(
-                input(
-                    "Если хотитет внести еще изменения нажмите 1, вернуться в главное меню - 2"
-                )
-            )
-            edit_contact() if wanna_cont == 1 else welcome()
+
+        wanna_cont = input(
+            "Если хотитет внести еще изменения нажмите 1, вернуться в главное меню - любая другая кнопка"
+        )
+
+        edit_contact() if wanna_cont == "1" else welcome()
+
     elif len(line) > 1:
         print(
             "Под данное описание подходит несколько контактов, если хотите изменить какую-то запись укажите более подробное описание!"
@@ -164,7 +179,18 @@ def page_by_page() -> NoReturn:
         with open(
             file=f"one_record_{i+1}.txt", encoding="utf-8", mode="w"
         ) as temp_file:
+
+            # Если в ТЗ имелось в виду, что экран - консоль
+            print(line[i])
+
+            # Если в ТЗ имелось в виду, что нужно вывести контакт в отдельном .txt файле
             temp_file.write(line[i])
+
+        wanna_cont = input(
+            "Нажмите: 1 - вернуться назад или любую другую кнопку, чтобы завершить программу"
+        )
+
+        welcome() if wanna_cont == "1" else ...
 
 
 # Запуск приложения
