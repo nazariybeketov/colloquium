@@ -9,6 +9,8 @@ from lists import human_params, which_cmd
 
 
 # Главное меню
+
+
 def welcome(which_cmd: list[str] = which_cmd) -> NoReturn:
     ### Приветственная надпись
     counter = 0
@@ -43,6 +45,8 @@ def welcome(which_cmd: list[str] = which_cmd) -> NoReturn:
 
 
 # Функция добавления пользователя
+
+
 def add_human(human_params: list[str] = human_params) -> str:
 
     human = []
@@ -69,6 +73,8 @@ def add_human(human_params: list[str] = human_params) -> str:
 
 
 # Функция поиска человека
+
+
 def find_human(
     response: list[str] = [],
     counter: int = 0,
@@ -118,6 +124,8 @@ def find_human(
 
 
 # Функция редактирования контакта
+
+
 def edit_contact(human_params: list[str] = human_params) -> NoReturn:
 
     line = find_human()
@@ -155,7 +163,7 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
             catalog.writelines(list_of_catalog)
 
         wanna_cont = input(
-            "Если хотитет внести еще изменения нажмите 1, вернуться в главное меню - любая другая кнопка"
+            "Если хотитет внести еще изменения нажмите 1, вернуться в главное меню - любая другая кнопка => "
         )
 
         edit_contact() if wanna_cont == "1" else welcome()
@@ -173,6 +181,8 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
 
 
 # Функция постраничного вывода контактов
+
+
 def page_by_page() -> NoReturn:
     line = find_human()
     for i in range(len(line)):
@@ -187,7 +197,7 @@ def page_by_page() -> NoReturn:
             temp_file.write(line[i])
 
         wanna_cont = input(
-            "Нажмите: 1 - вернуться назад или любую другую кнопку, чтобы завершить программу"
+            "Нажмите 1, чтобы вернуться назад. Нажмите любую другую кнопку, чтобы завершить программу => "
         )
 
         welcome() if wanna_cont == "1" else ...
