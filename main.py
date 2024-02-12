@@ -1,28 +1,17 @@
-"""Тестовое задание"""
+"""
+
+Тестовое задание
+
+"""
 
 from typing import NoReturn
+from lists import human_params, which_cmd
 
 
-human_params: list[str] = [
-    "Фамилия",
-    "Имя",
-    "Отчество",
-    "Название организации",
-    "Телефон рабочий",
-    "Телефон личный (сотовый)",
-]
-
-
-def welcome() -> NoReturn:
+# Главное меню
+def welcome(which_cmd: list[str] = which_cmd) -> NoReturn:
     counter = 0
     print(f"Здравствуйте\n")
-    which_cmd = [
-        "Вывод постранично записей из справочника на экран",
-        "Добавление новой записи в справочник",
-        "Редактирования записи в справочнике",
-        "Поиск записей по одной или нескольким характеристикам",
-        "Выйти",
-    ]
 
     for i in range(5):
         print(f"{i+1} - {which_cmd[i]}")
@@ -40,16 +29,17 @@ def welcome() -> NoReturn:
             edit_contact()
 
         case 4:
-            s = find_str()
+            s = find_human()
             for i in range(len(s)):
                 print(s[i])
+            welcome()
         case 5:
             ...
         case _:
             print("Такой команды не существует :9")
 
 
-# DONE!
+# Функция добавления пользователя
 def add_human(human_params: list[str] = human_params) -> str:
 
     human = []
@@ -69,8 +59,8 @@ def add_human(human_params: list[str] = human_params) -> str:
         print(f"\nКОНТАКТ УСПЕШНО ДОБАВЛЕН!!!\n")
 
 
-# DONE!
-def find_str(
+# Функция поиска человека
+def find_human(
     response: list[str] = [],
     counter: int = 0,
     finding_options: list[str] = human_params,
@@ -117,10 +107,10 @@ def find_str(
     return response
 
 
-# DONE!
+# Функция редактирования контакта
 def edit_contact(human_params: list[str] = human_params) -> NoReturn:
 
-    line = find_str()
+    line = find_human()
 
     if len(line) == 1:
         print(f"Что хотите изменить?\n")
@@ -149,7 +139,12 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
 
         with open(file="catalog.txt", encoding="utf-8", mode="w") as catalog:
             catalog.writelines(list_of_catalog)
-
+            wanna_cont = int(
+                input(
+                    "Если хотитет внести еще изменения нажмите 1, вернуться в главное меню - 2"
+                )
+            )
+            edit_contact() if wanna_cont == 1 else welcome()
     elif len(line) > 1:
         print(
             "Под данное описание подходит несколько контактов, если хотите изменить какую-то запись укажите более подробное описание!"
@@ -159,12 +154,12 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
     else:
         print(f"Ни одной записи не нашлось :(\n")
         print(f"Попробуйте найти с другими параметрами!\n")
-        find_str()
+        edit_contact()
 
 
-# DONE!
+# Функция постраничного вывода контактов
 def page_by_page() -> NoReturn:
-    line = find_str()
+    line = find_human()
     for i in range(len(line)):
         with open(
             file=f"one_record_{i+1}.txt", encoding="utf-8", mode="w"
@@ -172,4 +167,5 @@ def page_by_page() -> NoReturn:
             temp_file.write(line[i])
 
 
+# Запуск приложения
 welcome()
