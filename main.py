@@ -29,7 +29,7 @@ def welcome(which_cmd: list[str] = which_cmd) -> NoReturn:
 
     print("\n")
     user_ans = int(
-        input(text_highlighter("Какой командой желаете восьпользоваться? => ").strip())
+        input(text_highlighter("Какой командой желаете воспользоваться? => ").strip())
     )
     print("\n")
     ###
