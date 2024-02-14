@@ -8,6 +8,7 @@ from typing import NoReturn
 from lists import human_params, which_cmd
 import sys
 
+sys.setrecursionlimit(10000)
 
 def text_highlighter(imp_str: str = "") -> str:
     """ФУНКЦИЯ, КОТОРАЯ ДЕЛАЕТ ТЕКСТ ЖИРНЫМ"""
@@ -136,7 +137,7 @@ def find_human(
 
     # Заполнение словаря
     for k in user_answer:
-        ans = input(f'Введите поле "{text_highlighter(finding_options[k-1]).strip()}" => ')
+        ans = input(f'Введите поле "{text_highlighter(finding_options[k-1]).strip()}" => ').replace(" ","-")
         desired_answeres[finding_options[k - 1]] = ans
 
     # Работа с файлом
@@ -198,7 +199,7 @@ def edit_contact(human_params: list[str] = human_params) -> NoReturn:
             edit_contact()
         new_line = line[0].split()
         for j in user_answer:
-            new_line[j - 1] = input(f'Введите поле "{text_highlighter(human_params[j-1])}" => ').strip()
+            new_line[j - 1] = input(f'Введите поле "{text_highlighter(human_params[j-1])}" => ').strip().replace(" ","-")
         ###
 
         new_line = " ".join(new_line) + "\n"
