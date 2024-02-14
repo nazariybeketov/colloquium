@@ -75,7 +75,7 @@ def add_human(human_params: list[str] = human_params) -> str:
     human = []
 
     for param in human_params:
-        human.append(input(f'Введите поле "{text_highlighter(param.upper())}" => ').strip())
+        human.append(input(f'Введите поле "{text_highlighter(param.upper())}" => ').strip().replace(" ","-"))
 
     with open(file="catalog.txt", mode="a+", encoding="utf-8") as catalog:
 
