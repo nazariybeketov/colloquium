@@ -80,12 +80,7 @@ def add_human(human_params: list[str] = human_params) -> str:
 
     with open(file="catalog.txt", mode="a+", encoding="utf-8") as catalog:
 
-        catalog.seek(0, 2)
-
-        if len(catalog.readlines()) > 0:
-            catalog.write("\n")
-
-        catalog.write(" ".join(human) + "\n")
+        catalog.write("\n" + " ".join(human) + "\n")
 
         print(f"\n{text_highlighter("КОНТАКТ УСПЕШНО ДОБАВЛЕН!!!")}\n")
 
